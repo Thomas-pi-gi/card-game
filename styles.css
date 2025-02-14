@@ -20,13 +20,9 @@ body {
 
 h1 {
     font-size: 3rem;
+    margin-bottom: 20px;
     color: #ff6347;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
 }
 
 #cards {
@@ -57,6 +53,7 @@ h2 {
     height: auto;
     border-radius: 10px;
     display: block;
+    transition: opacity 0.3s ease;
 }
 
 .overlay {
@@ -73,13 +70,8 @@ h2 {
     font-size: 48px;
     font-weight: bold;
     transform: rotate(-45deg);
-    opacity: 0;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.overlay.show {
-    opacity: 1;
-    transform: scale(1.1);
+    display: none;
+    transition: opacity 0.3s ease;
 }
 
 button {
@@ -103,16 +95,19 @@ button:hover {
     margin-top: 20px;
     font-size: 24px;
     color: #ff6347;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 #winnerSection {
-    text-align: center;
-    margin-top: 30px;
+    margin-top: 20px;
+    font-size: 24px;
+    color: #ff6347;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-#winnerImg {
-    width: 250px;
-    border-radius: 15px;
-    border: 5px solid gold;
+#winnerSection img {
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
     margin-top: 10px;
 }
