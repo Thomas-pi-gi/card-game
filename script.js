@@ -20,10 +20,10 @@ const winnerName = document.getElementById('winnerName');
 
 function updateRoundTitle() {
     const rounds = {
-        16: "Round of 16",
-        8: "Quarter Final",
-        4: "Semi Final",
-        2: "Final"
+        8: "Round of 8",
+        4: "Quarter Final",
+        2: "Semi Final",
+        1: "Final"
     };
     roundTitle.innerText = rounds[advancingCards.length] || "Final";
 }
@@ -73,21 +73,4 @@ function chooseCard(chosenCard, eliminatedCard) {
 
     // Show overlay on eliminated card
     if (eliminatedCard === card1Img.src.split('/').pop().replace('.jpg', '')) {
-        overlay1.style.display = "flex";
-    } else {
-        overlay2.style.display = "flex";
-    }
-
-    option1.disabled = true;
-    option2.disabled = true;
-
-    setTimeout(() => {
-        option1.disabled = false;
-        option2.disabled = false;
-
-        nextRoundCards.push(chosenCard); // Add to next round
-        displayNextPair(); // Continue to the next pair
-    }, 2000);
-}
-
-fun
+        overla
