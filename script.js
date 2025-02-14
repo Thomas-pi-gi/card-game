@@ -97,4 +97,17 @@ function showWinner(winner) {
     result.style.display = "none";
 }
 
+function showWinner(winner) {
+    winnerSection.style.display = "block";
+    winnerImg.src = `images/${winner}.jpg`;
+    winnerName.innerText = `${winner} is the winner!`;
+    document.getElementById('cards').style.display = "none";
+    result.style.display = "none";
+
+    // Update global leaderboard
+    updateLeaderboard(winner);
+}
 startNewRound();
+
+
+
