@@ -36,7 +36,7 @@ function displayCards() {
 }
 
 function chooseCard(chosenCard, eliminatedCard) {
-    result.innerText = `You chose ${chosenCard.replace('.jpg', '')}! ${eliminatedCard.replace('.jpg', '')} is eliminated.`;
+    result.innerText = `${chosenCard.replace('.jpg', '')} avance à la prochaine chouffe!`;
     if (eliminatedCard === card1Img.src.split('/').pop()) {
         overlay1.style.display = 'flex';
     } else {
