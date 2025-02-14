@@ -3,15 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adventure Game</title>
+    <title>Card Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="game">
-        <h1>Adventure Game</h1>
-        <p id="story"></p>
-        <button id="option1">Option 1</button>
-        <button id="option2">Option 2</button>
+        <h1>Card Game</h1>
+        <div id="cards">
+            <div class="card" id="card1">
+                <img id="card1Img" src="" alt="Card 1">
+                <button id="option1">Choose Card 1</button>
+            </div>
+            <div class="card" id="card2">
+                <img id="card2Img" src="" alt="Card 2">
+                <button id="option2">Choose Card 2</button>
+            </div>
+        </div>
+        <div id="result"></div>
     </div>
     <script src="script.js"></script>
 </body>
