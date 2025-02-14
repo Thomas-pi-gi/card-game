@@ -13,20 +13,35 @@ body {
 #cards {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 50px;
 }
 
 .card {
+    position: relative;
     border: 2px solid #ccc;
     padding: 20px;
     border-radius: 10px;
     background-color: #fff;
     text-align: center;
+    width: 200px;
+    height: 300px;
 }
 
 .card img {
-    max-width: 100%;
+    width: 100%;
+    height: auto;
     border-radius: 10px;
+}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: red;
+    font-weight: bold;
+    display: none;
 }
 
 button {
