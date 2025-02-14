@@ -38,9 +38,9 @@ function displayCards() {
 function chooseCard(chosenCard, eliminatedCard) {
     result.innerText = `You chose ${chosenCard.replace('.jpg', '')}! ${eliminatedCard.replace('.jpg', '')} is eliminated.`;
     if (eliminatedCard === card1Img.src.split('/').pop()) {
-        overlay1.style.display = 'block';
+        overlay1.style.display = 'flex';
     } else {
-        overlay2.style.display = 'block';
+        overlay2.style.display = 'flex';
     }
     setTimeout(displayCards, 2000); // Display new cards after 2 seconds
 }
