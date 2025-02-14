@@ -1,6 +1,5 @@
 const cardPool = [
-    'Marco.jpg', 'T.Kratz.jpg', 'TG.jpg', 'BG.jpg',
-    'RV.jpg', 'Pauline.jpg'
+    'BG.jpg', 'Marco.jpg', 'RV.jpg', 'Pauline.jpg', 'TG.jpg', 'T.Kratz.jpg'
 ];
 
 let remainingCards = [...cardPool];
