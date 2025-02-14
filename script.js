@@ -2,7 +2,9 @@ const cardPool = [
     'BG', 'Marco', 'RV', 'Pauline', 'TG', 'T.Kratz', 'person7', 'person8'
 ];
 
-let advancingCards = [...cardPool]; // Holds cards advancing to next round
+let advancingCards = [...cardPool]; // Cards advancing to next round
+let currentRoundPairs = []; // Pairs for current round
+let nextRoundCards = []; // Cards that win in the current round
 
 const card1Img = document.getElementById('card1Img');
 const card2Img = document.getElementById('card2Img');
@@ -15,8 +17,6 @@ const roundTitle = document.getElementById('roundTitle');
 const winnerSection = document.getElementById('winnerSection');
 const winnerImg = document.getElementById('winnerImg');
 const winnerName = document.getElementById('winnerName');
-
-let currentRoundPairs = []; // Stores current pairs
 
 function updateRoundTitle() {
     const rounds = {
@@ -34,32 +34,35 @@ function shuffleArray(array) {
 
 function startNewRound() {
     if (advancingCards.length === 1) {
-        showWinner(advancingCards[0]); // Show final winner
+        showWinner(advancingCards[0]); // Display final winner
         return;
     }
 
     updateRoundTitle();
 
-    currentRoundPairs = shuffleArray([...advancingCards]); // Shuffle remaining cards
-    advancingCards = []; // Reset advancing list for next round
+    // Shuffle and pair up the advancing cards
+    currentRoundPairs = shuffleArray([...advancingCards]);
+    nextRoundCards = [];
+    advancingCards = []; // Clear advancing cards to be refilled
 
-    displayCards();
+    displayNextPair();
 }
 
-function displayCards() {
+function displayNextPair() {
     if (currentRoundPairs.length < 2) {
-        startNewRound(); // Move to next round if all pairs are done
+        advancingCards = [...nextRoundCards]; // Move winners to next round
+        startNewRound(); // Start new round
         return;
     }
 
-    const card1 = currentRoundPairs.pop(); // Get two cards
+    const card1 = currentRoundPairs.pop();
     const card2 = currentRoundPairs.pop();
 
     card1Img.src = `images/${card1}.jpg`;
     card2Img.src = `images/${card2}.jpg`;
 
-    overlay1.classList.remove('show');
-    overlay2.classList.remove('show');
+    overlay1.style.display = "none";
+    overlay2.style.display = "none";
 
     option1.onclick = () => chooseCard(card1, card2);
     option2.onclick = () => chooseCard(card2, card1);
@@ -68,10 +71,11 @@ function displayCards() {
 function chooseCard(chosenCard, eliminatedCard) {
     result.innerText = `${chosenCard} advances to the next round!`;
 
+    // Show overlay on eliminated card
     if (eliminatedCard === card1Img.src.split('/').pop().replace('.jpg', '')) {
-        overlay1.classList.add('show');
+        overlay1.style.display = "flex";
     } else {
-        overlay2.classList.add('show');
+        overlay2.style.display = "flex";
     }
 
     option1.disabled = true;
@@ -81,19 +85,9 @@ function chooseCard(chosenCard, eliminatedCard) {
         option1.disabled = false;
         option2.disabled = false;
 
-        advancingCards.push(chosenCard); // Move the chosen card to next round
-        displayCards(); // Continue next pair or next round
+        nextRoundCards.push(chosenCard); // Add to next round
+        displayNextPair(); // Continue to the next pair
     }, 2000);
 }
 
-function showWinner(winner) {
-    roundTitle.innerText = "🏆 Tournament Winner! 🏆";
-    result.innerText = `${winner} is the champion!`;
-    winnerImg.src = `images/${winner}.jpg`;
-    winnerName.innerText = winner;
-    document.getElementById('cards').style.display = 'none';
-    winnerSection.style.display = 'block';
-}
-
-// Start the first round
-startNewRound();
+fun
