@@ -2,7 +2,7 @@ const cardPool = [
     'BG', 'Marco', 'RV', 'Pauline', 'TG', 'T.Kratz', 'person7', 'person8'
 ];
 
-let remainingCards = [...cardPool];
+let advancingCards = [...cardPool]; // Holds cards advancing to next round
 
 const card1Img = document.getElementById('card1Img');
 const card2Img = document.getElementById('card2Img');
@@ -16,6 +16,8 @@ const winnerSection = document.getElementById('winnerSection');
 const winnerImg = document.getElementById('winnerImg');
 const winnerName = document.getElementById('winnerName');
 
+let currentRoundPairs = []; // Stores current pairs
+
 function updateRoundTitle() {
     const rounds = {
         16: "Round of 16",
@@ -23,29 +25,35 @@ function updateRoundTitle() {
         4: "Semi Final",
         2: "Final"
     };
-    roundTitle.innerText = rounds[remainingCards.length] || "Final";
+    roundTitle.innerText = rounds[advancingCards.length] || "Final";
 }
 
-function getRandomCard() {
-    const randomIndex = Math.floor(Math.random() * remainingCards.length);
-    return remainingCards.splice(randomIndex, 1)[0]; // Remove the selected card
+function shuffleArray(array) {
+    return array.sort(() => Math.random() - 0.5);
 }
 
-function displayCards() {
-    if (remainingCards.length === 1) {
-        showWinner(remainingCards[0]); // If only 1 remains, they win
+function startNewRound() {
+    if (advancingCards.length === 1) {
+        showWinner(advancingCards[0]); // Show final winner
         return;
     }
 
     updateRoundTitle();
 
-    if (remainingCards.length < 2) {
-        console.error("Not enough cards to continue!");
+    currentRoundPairs = shuffleArray([...advancingCards]); // Shuffle remaining cards
+    advancingCards = []; // Reset advancing list for next round
+
+    displayCards();
+}
+
+function displayCards() {
+    if (currentRoundPairs.length < 2) {
+        startNewRound(); // Move to next round if all pairs are done
         return;
     }
 
-    const card1 = getRandomCard();
-    const card2 = getRandomCard();
+    const card1 = currentRoundPairs.pop(); // Get two cards
+    const card2 = currentRoundPairs.pop();
 
     card1Img.src = `images/${card1}.jpg`;
     card2Img.src = `images/${card2}.jpg`;
@@ -60,7 +68,6 @@ function displayCards() {
 function chooseCard(chosenCard, eliminatedCard) {
     result.innerText = `${chosenCard} advances to the next round!`;
 
-    // Show overlay for eliminated card
     if (eliminatedCard === card1Img.src.split('/').pop().replace('.jpg', '')) {
         overlay1.classList.add('show');
     } else {
@@ -74,9 +81,8 @@ function chooseCard(chosenCard, eliminatedCard) {
         option1.disabled = false;
         option2.disabled = false;
 
-        // Move the chosen card to the next round
-        remainingCards.push(chosenCard);
-        displayCards();
+        advancingCards.push(chosenCard); // Move the chosen card to next round
+        displayCards(); // Continue next pair or next round
     }, 2000);
 }
 
@@ -90,4 +96,4 @@ function showWinner(winner) {
 }
 
 // Start the first round
-displayCards();
+startNewRound();
