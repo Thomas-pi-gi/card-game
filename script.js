@@ -16,11 +16,6 @@ const winnerSection = document.getElementById('winnerSection');
 const winnerImg = document.getElementById('winnerImg');
 const winnerName = document.getElementById('winnerName');
 
-function getRandomCard() {
-    const randomIndex = Math.floor(Math.random() * remainingCards.length);
-    return remainingCards.splice(randomIndex, 1)[0];
-}
-
 function updateRoundTitle() {
     const rounds = {
         16: "Round of 16",
@@ -31,13 +26,23 @@ function updateRoundTitle() {
     roundTitle.innerText = rounds[remainingCards.length] || "Final";
 }
 
+function getRandomCard() {
+    const randomIndex = Math.floor(Math.random() * remainingCards.length);
+    return remainingCards.splice(randomIndex, 1)[0]; // Remove the selected card
+}
+
 function displayCards() {
     if (remainingCards.length === 1) {
-        showWinner(remainingCards[0]);
+        showWinner(remainingCards[0]); // If only 1 remains, they win
         return;
     }
 
     updateRoundTitle();
+
+    if (remainingCards.length < 2) {
+        console.error("Not enough cards to continue!");
+        return;
+    }
 
     const card1 = getRandomCard();
     const card2 = getRandomCard();
@@ -53,8 +58,9 @@ function displayCards() {
 }
 
 function chooseCard(chosenCard, eliminatedCard) {
-    result.innerText = `${chosenCard} moves to the next round!`;
+    result.innerText = `${chosenCard} advances to the next round!`;
 
+    // Show overlay for eliminated card
     if (eliminatedCard === card1Img.src.split('/').pop().replace('.jpg', '')) {
         overlay1.classList.add('show');
     } else {
@@ -67,6 +73,21 @@ function chooseCard(chosenCard, eliminatedCard) {
     setTimeout(() => {
         option1.disabled = false;
         option2.disabled = false;
+
+        // Move the chosen card to the next round
         remainingCards.push(chosenCard);
         displayCards();
-    }, 2000
+    }, 2000);
+}
+
+function showWinner(winner) {
+    roundTitle.innerText = "🏆 Tournament Winner! 🏆";
+    result.innerText = `${winner} is the champion!`;
+    winnerImg.src = `images/${winner}.jpg`;
+    winnerName.innerText = winner;
+    document.getElementById('cards').style.display = 'none';
+    winnerSection.style.display = 'block';
+}
+
+// Start the first round
+displayCards();
