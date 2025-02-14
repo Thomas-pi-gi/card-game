@@ -1,4 +1,4 @@
-const GOOGLE_SHEET_API = "https://script.google.com/u/0/home/projects/1-_fhE7aPrQxdcWX0A9K_c0ev7uNy_NPifLomeMh2U9HWYNCio44wTLKf/edit"; 
+const GOOGLE_SHEET_API = "https://script.google.com/macros/s/AKfycby_ZDDAIUhEjFDucoBtee9r3YwdY_XwrV0HmZbgkoQtqAl2fZrtkzgK0z3nmtRnB-kr/exec"; 
 
 async function updateLeaderboard(winner) {
     await fetch(GOOGLE_SHEET_API, {
