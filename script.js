@@ -42,4 +42,59 @@ function startNewRound() {
     // Shuffle and pair up the advancing cards
     currentRoundPairs = shuffleArray([...advancingCards]);
     nextRoundCards = [];
-    advancingCards = []
+    advancingCards = []; // Clear advancing cards to be refilled
+
+    displayNextPair();
+}
+
+function displayNextPair() {
+    if (currentRoundPairs.length < 2) {
+        advancingCards = [...nextRoundCards]; // Move winners to next round
+        startNewRound(); // Start new round
+        return;
+    }
+
+    const card1 = currentRoundPairs.pop();
+    const card2 = currentRoundPairs.pop();
+
+    card1Img.src = `images/${card1}.jpg`;
+    card2Img.src = `images/${card2}.jpg`;
+
+    overlay1.style.display = "none";
+    overlay2.style.display = "none";
+
+    option1.onclick = () => chooseCard(card1, card2);
+    option2.onclick = () => chooseCard(card2, card1);
+}
+
+function chooseCard(chosenCard, eliminatedCard) {
+    result.innerText = `${chosenCard} advances to the next round!`;
+
+    // Show overlay on eliminated card
+    if (eliminatedCard === card1Img.src.split('/').pop().replace('.jpg', '')) {
+        overlay1.style.display = "flex";
+    } else {
+        overlay2.style.display = "flex";
+    }
+
+    option1.disabled = true;
+    option2.disabled = true;
+
+    setTimeout(() => {
+        option1.disabled = false;
+        option2.disabled = false;
+
+        nextRoundCards.push(chosenCard); // Add to next round
+        displayNextPair(); // Continue to the next pair
+    }, 2000);
+}
+
+function showWinner(winner) {
+    winnerSection.style.display = "block";
+    winnerImg.src = `images/${winner}.jpg`;
+    winnerName.innerText = `${winner} is the winner!`;
+    document.getElementById('cards').style.display = "none";
+    result.style.display = "none";
+}
+
+startNewRound();
