@@ -1,5 +1,5 @@
 const cardPool = [
-    'BG.jpg', 'Marco.jpg', 'RV.jpg', 'Pauline.jpg', 'TG.jpg', 'T.Kratz.jpg'
+    'BG', 'Marco', 'RV', 'Pauline', 'TG', 'T.Kratz'
 ];
 
 let remainingCards = [...cardPool];
@@ -21,8 +21,8 @@ function displayCards() {
     const card1 = getRandomCard();
     const card2 = getRandomCard();
 
-    card1Img.src = `images/${card1}`;
-    card2Img.src = `images/${card2}`;
+    card1Img.src = `images/${card1}.jpg`;
+    card2Img.src = `images/${card2}.jpg`;
 
     overlay1.style.display = 'none';
     overlay2.style.display = 'none';
@@ -32,8 +32,8 @@ function displayCards() {
 }
 
 function chooseCard(chosenCard, eliminatedCard) {
-    result.innerText = `${chosenCard.replace('.jpg', '')} avance à la prochaine chouffe!`;
-    if (eliminatedCard === card1Img.src.split('/').pop()) {
+    result.innerText = `${chosenCard} avance à la prochaine chouffe!`;
+    if (eliminatedCard === card1Img.src.split('/').pop().replace('.jpg', '')) {
         overlay1.style.display = 'flex';
     } else {
         overlay2.style.display = 'flex';
