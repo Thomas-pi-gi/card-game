@@ -20,12 +20,11 @@ const winnerName = document.getElementById('winnerName');
 
 function updateRoundTitle() {
     const rounds = {
-        8: "Round of 8",
-        4: "Quarter Final",
-        2: "Semi Final",
-        1: "Final"
+        8: "Quarter Final",
+        4: "Semi Final",
+        2: "Final"
     };
-    roundTitle.innerText = rounds[advancingCards.length] || "Final";
+    roundTitle.innerText = rounds[advancingCards.length] || "Winner";
 }
 
 function shuffleArray(array) {
@@ -43,34 +42,4 @@ function startNewRound() {
     // Shuffle and pair up the advancing cards
     currentRoundPairs = shuffleArray([...advancingCards]);
     nextRoundCards = [];
-    advancingCards = []; // Clear advancing cards to be refilled
-
-    displayNextPair();
-}
-
-function displayNextPair() {
-    if (currentRoundPairs.length < 2) {
-        advancingCards = [...nextRoundCards]; // Move winners to next round
-        startNewRound(); // Start new round
-        return;
-    }
-
-    const card1 = currentRoundPairs.pop();
-    const card2 = currentRoundPairs.pop();
-
-    card1Img.src = `images/${card1}.jpg`;
-    card2Img.src = `images/${card2}.jpg`;
-
-    overlay1.style.display = "none";
-    overlay2.style.display = "none";
-
-    option1.onclick = () => chooseCard(card1, card2);
-    option2.onclick = () => chooseCard(card2, card1);
-}
-
-function chooseCard(chosenCard, eliminatedCard) {
-    result.innerText = `${chosenCard} advances to the next round!`;
-
-    // Show overlay on eliminated card
-    if (eliminatedCard === card1Img.src.split('/').pop().replace('.jpg', '')) {
-        overla
+    advancingCards = []
