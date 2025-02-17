@@ -50,7 +50,8 @@ h1 {
 
 .card img {
     width: 100%;
-    height: auto;
+    height: 300px; /* Set a fixed height for uniformity */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
     border-radius: 10px;
     display: block;
     transition: opacity 0.3s ease;
@@ -65,13 +66,14 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 0, 0, 0.7);
+    background-color: rgba(255, 0, 0, 0.8); /* Slightly darker red */
     color: white;
-    font-size: 48px;
+    font-size: 36px; /* Adjust font size */
     font-weight: bold;
-    transform: rotate(-45deg);
+    transform: rotate(-10deg); /* Less aggressive rotation */
     display: none;
     transition: opacity 0.3s ease;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow for better visibility */
 }
 
 button {
@@ -100,14 +102,91 @@ button:hover {
 
 #winnerSection {
     margin-top: 20px;
-    font-size: 24px;
-    color: #ff6347;
+    font-size: 28px;
+    color: #ffd700; /* Gold color for a celebratory feel */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    position: relative;
+    padding: 20px;
+    border: 4px solid #ffd700;
+    border-radius: 15px;
+    background-color: #1a1a1a;
+    overflow: hidden;
+}
+
+#winnerSection::before {
+    content: '🏆'; /* Trophy icon */
+    font-size: 48px;
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffd700;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 #winnerSection img {
-    width: 200px;
+    width: 400px;
     height: auto;
     border-radius: 10px;
     margin-top: 10px;
+    border: 4px solid #ffd700;
+}
+
+#winnerSection p {
+    font-size: 24px;
+    margin-top: 10px;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+#leaderboardSection {
+    margin-top: 20px;
+    font-size: 24px;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    border: 2px solid #ffd700;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #1a1a1a;
+}
+
+#leaderboardList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#leaderboardList li {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#leaderboardList li span {
+    font-size: 20px;
+    color: #fff;
+}
+
+#leaderboardList li .points {
+    font-weight: bold;
+    color: #ffd700;
+}
+
+#replayButton {
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    background-color: #ffd700;
+    color: #1a1a1a;
+    width: auto;
+    transition: background-color 0.3s ease;
+    display: block; /* Ensure the button is displayed */
+}
+
+#replayButton:hover {
+    background-color: #e6c200;
 }
