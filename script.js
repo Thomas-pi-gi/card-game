@@ -1,8 +1,9 @@
 const cardPool = [
-    'BG', 'Marco', 'RV', 'Pauline', 'TG', 'T.Kratz', 'person7', 'person8'
+    'Baptiste', 'Marco', 'RV', 'Pauline', 'JB', 'Augustin', 'charles-de-loisy', 'amandine',
+    'T.Kratz', 'TG', 'Alexandre'
 ];
 
-let advancingCards = [...cardPool]; // Cards advancing to next round
+let advancingCards = []; // Cards advancing to next round
 let currentRoundPairs = []; // Pairs for current round
 let nextRoundCards = []; // Cards that win in the current round
 
@@ -17,6 +18,9 @@ const roundTitle = document.getElementById('roundTitle');
 const winnerSection = document.getElementById('winnerSection');
 const winnerImg = document.getElementById('winnerImg');
 const winnerName = document.getElementById('winnerName');
+const replayButton = document.getElementById('replayButton');
+
+const leaderboardUrl = 'https://script.google.com/macros/s/AKfycbwcpgAElgWGtPrsCPqyRdXpK6pbnsRGKTkpciQr0ckCdDXBGFnR8IrR4T9GOt_QLAUg/exec'; // Replace with your Google Apps Script web app URL
 
 function updateRoundTitle() {
     const rounds = {
@@ -86,15 +90,7 @@ function chooseCard(chosenCard, eliminatedCard) {
 
         nextRoundCards.push(chosenCard); // Add to next round
         displayNextPair(); // Continue to the next pair
-    }, 2000);
-}
-
-function showWinner(winner) {
-    winnerSection.style.display = "block";
-    winnerImg.src = `images/${winner}.jpg`;
-    winnerName.innerText = `${winner} is the winner!`;
-    document.getElementById('cards').style.display = "none";
-    result.style.display = "none";
+    }, 500);
 }
 
 function showWinner(winner) {
@@ -106,8 +102,61 @@ function showWinner(winner) {
 
     // Update global leaderboard
     updateLeaderboard(winner);
+
+    // Ensure the replay button is visible and clickable
+    replayButton.style.display = "block";
+    replayButton.disabled = false;
+
+    // Add event listener to the replay button
+    replayButton.onclick = () => {
+        location.reload(); // Reload the page to restart the game
+    };
 }
-startNewRound();
 
+async function updateLeaderboard(winner) {
+    try {
+        const response = await fetch(leaderboardUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ player: winner, points: 1 }),
+        });
 
+        if (response.ok) {
+            console.log('Leaderboard updated successfully');
+            displayLeaderboard();
+        } else {
+            const errorData = await response.json();
+            console.error('Failed to update leaderboard:', errorData);
+        }
+    } catch (error) {
+        console.error('Error updating leaderboard:', error);
+    }
+}
 
+async function displayLeaderboard() {
+    const response = await fetch(leaderboardUrl);
+    const data = await response.json();
+
+    const leaderboardList = document.getElementById('leaderboardList');
+    leaderboardList.innerHTML = '';
+
+    data.forEach(({ player, points }) => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `<span>${player}</span><span class="points">${points} points</span>`;
+        leaderboardList.appendChild(listItem);
+    });
+}
+
+// Call displayLeaderboard initially to show the leaderboard
+displayLeaderboard();
+
+// Start the first round of the game
+function startGame() {
+    // Pick 8 random cards from the pool
+    advancingCards = shuffleArray([...cardPool]).slice(0, 8);
+    startNewRound();
+}
+
+startGame();
