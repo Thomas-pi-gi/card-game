@@ -67,6 +67,9 @@ function displayNextPair() {
     overlay1.style.display = "none";
     overlay2.style.display = "none";
 
+    option1.innerText = `Choose ${card1}`;
+    option2.innerText = `Choose ${card2}`;
+
     option1.onclick = () => chooseCard(card1, card2);
     option2.onclick = () => chooseCard(card2, card1);
 }
