@@ -1,6 +1,6 @@
 const cardPool = [
     'Baptiste', 'Marco', 'RV', 'Pauline', 'JB', 'Augustin', 'charles-de-loisy', 'amandine',
-    'T.Kratz', 'TG', 'Alexandre'
+    'T.Kratz', 'TG', 'Alexandre', 'Freddy', 'Alexandre RB'
 ];
 
 let advancingCards = []; // Cards advancing to next round
